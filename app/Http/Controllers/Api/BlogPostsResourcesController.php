@@ -37,7 +37,8 @@ class BlogPostsResourcesController extends Controller
         })->when($this->checkRequestField('search_input'),function ($q){
             return $q->where(function ($q){
                 $search_input=\request('search_input');
-                return $q->where('title','LIKE',"%".$search_input."%")->orWhere('content','LIKE',"%".$search_input."%");
+                return $q->where('title','LIKE',"%".$search_input."%")
+                    ->orWhere('content','LIKE',"%".$search_input."%");
             });
 
         })->with('User')->get()->transform(function ($post) {
