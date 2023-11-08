@@ -19,6 +19,7 @@
         "vue-template-compiler": "^2.7.15"
     },
     "dependencies": {
-        "@vitejs/plugin-vue": "^4.4.0"
+        "@vitejs/plugin-vue": "^4.4.0",
+        "lodash": "^4.17.21"
     }
 }

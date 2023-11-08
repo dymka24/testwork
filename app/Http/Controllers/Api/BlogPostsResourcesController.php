@@ -34,6 +34,12 @@ class BlogPostsResourcesController extends Controller
             });
         })->when($this->checkRequestField('network_id'), function ($q) {
             return $q->where('social_network_id',\request('network_id'));
+        })->when($this->checkRequestField('search_input'),function ($q){
+            return $q->where(function ($q){
+                $search_input=\request('search_input');
+                return $q->where('title','LIKE',"%".$search_input."%")->orWhere('content','LIKE',"%".$search_input."%");
+            });
+
         })->with('User')->get()->transform(function ($post) {
             $post->published_at = $post->created_at ? Carbon::parse($post->created_at)->format('d/m/Y') : '';
             return $post;

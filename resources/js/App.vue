@@ -2,7 +2,7 @@
     <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-gray-100  antialiased">
         <h1 class="mb-4 text-5xl text-center mb-10 font-extrabold">Blog Posts</h1>
         <hr>
-        <div class="grid grid-cols-3 gap-4 mt-10">
+        <div class="grid grid-cols-4 gap-4 mt-10">
             <div class="col-span-1">
                 <label for="lists" class="text-gray-900">Lists</label>
                 <select id="lists" v-model="selectedList"
@@ -32,6 +32,11 @@
                     </option>
                 </select>
             </div>
+            <div class="col-span-1">
+                <label for="lists" class="text-gray-900">Search</label>
+
+                    <input type="search" id="default-search"   v-model="searchInput"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Search posts..." >
+            </div>
 
         </div>
         <div class="grid grid-cols-1 gap-10 mt-10 w-4/6 m-auto" >
@@ -56,7 +61,8 @@
     </main>
 </template>
 <script setup>
-import {onMounted, onUpdated, ref, watch} from "vue";
+import {onMounted, onUpdated, ref, watch, watchEffect} from "vue";
+import _ from 'lodash';
 
 const lists = ref([]);
 const networks = ref([]);
@@ -66,6 +72,7 @@ const posts = ref([]);
 const selectedList = ref('all');
 const selectedNetwork = ref('all');
 const selectedUser = ref('all');
+const searchInput = ref('');
 const getResources = async () => {
     try {
         const response = await axios.get('/api/resources');
@@ -78,6 +85,11 @@ const getResources = async () => {
         console.log('error', e)
     }
 }
+const debouncedGetPosts = _.debounce(() => {
+    getPosts();
+}, 500);
+
+
 const getPosts = async () => {
     try {
         const response = await axios.get('/api/posts', {
@@ -85,6 +97,7 @@ const getPosts = async () => {
                 list_id: selectedList.value,
                 user_id: selectedUser.value,
                 network_id: selectedNetwork.value,
+                search_input:searchInput.value
             }
         });
         posts.value = response.data.posts;
@@ -93,6 +106,11 @@ const getPosts = async () => {
         console.log('error', e)
     }
 }
+watchEffect(() => {
+    if (searchInput.value.length > 2 || searchInput.value.length === 0) { // Optional: Only search when the query is 3 or more characters or empty
+        getPosts();
+    }
+});
 const getUsers = async () => {
     try {
         const response = await axios.get('/api/users', {
