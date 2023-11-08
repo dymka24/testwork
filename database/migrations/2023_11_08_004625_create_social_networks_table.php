@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('social_networks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('link')->nullable();
+            $table->string('platform');
+            $table->string('account_name');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }
