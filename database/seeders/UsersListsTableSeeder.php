@@ -12,6 +12,14 @@ class UsersListsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $insert_data=[
+            ['name'=>'crypto'],
+        ];
+        $i=0;
+        while($i<12){
+            $insert_data[]=['name'=>fake()->name];
+            $i++;
+        }
+        \DB::table('user_lists')->insert($insert_data);
     }
 }
