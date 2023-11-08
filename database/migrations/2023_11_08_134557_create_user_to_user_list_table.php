@@ -12,10 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_to_user_list', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(User::class)->onUpdateCascade()->onDeleteCascade();
-            $table->foreignIdFor(UserList::class)->onUpdateCascade()->onDeleteCascade();
+        Schema::create('user_users_list', function (Blueprint $table) {
+            $table->foreignId('users_list_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

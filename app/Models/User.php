@@ -43,8 +43,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function UserLists(){
-        return $this->belongsToMany(UserList::class,'user_to_user_list');
+    public function lists()
+    {
+        return $this->belongsToMany(UsersList::class, 'user_users_list');
+    }
+
+    public function socialNewtorkAccounts() {
+        return $this->hasMany(SocialNetwork::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasManyThrough(Post::class, Account::class);
     }
 
 }

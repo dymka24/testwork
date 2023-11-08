@@ -14,14 +14,13 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('body');
-            $table->string('author')->nullable();
-            $table->string('link')->nullable();
-            $table->foreignIdFor(User::class)->onUpdateCascade()->onDeleteCascade();
-            $table->foreignIdFor(SocialNetwork::class)->nullable()->nullOnUpdate()->nullOnDelete();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('social_network_id')->constrained();
+            $table->text('content');
+            $table->string('original_link')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**
