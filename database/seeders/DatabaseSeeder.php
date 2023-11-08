@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
     {
 //         \App\Models\User::factory(10)->create();
         $this->call([
-//            SocialNetworkSeeder::class,
-//            UsersListsTableSeeder::class,
-//            UsersTableSeeder::class,
-//            UserToUsersListsSeeder::class
+            SocialNetworkSeeder::class,
+            UsersListsTableSeeder::class,
+            UsersTableSeeder::class,
+            UserToUsersListsSeeder::class
         ]);
         \App\Models\Post::factory(150)->create();
         // \App\Models\User::factory()->create([
