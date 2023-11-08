@@ -12,7 +12,6 @@ class UserList extends Model
     
     protected $fillable = [
         'name',
-        // Add other list attributes here
     ];
 
     public function Users(){

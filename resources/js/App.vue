@@ -173,7 +173,6 @@ onMounted(() => {
     getResources();
 })
 onUpdated(() => {
-    // console.log('selectedList', selectedList.value)
-    // console.log('posts', posts.value)
+
 })
 </script>
