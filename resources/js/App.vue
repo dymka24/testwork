@@ -46,6 +46,12 @@
                     <p class="text-gray-600">{{ post.content }}</p>
                 </div>
             </div>
+            <div class="col-span-1" v-if="!posts.length">
+                <div class="bg-white shadow-md rounded-lg py-5 px-10 hover:shadow-lg transition-shadow duration-150">
+
+                <h1 class="font-bold text-5xl mb-2 text-slate-900 text-center" >No Posts available</h1>
+                </div>
+            </div>
         </div>
     </main>
 </template>
@@ -91,11 +97,11 @@ const getPosts = async () => {
     console.log('getPosts')
     try {
         const response = await axios.get('/api/posts', {
-           data:{
-               list_id: selectedList.value,
-               user_id: selectedUser.value,
-               network_id: selectedNetwork.value,
-           }
+            params: {
+                list_id: selectedList.value,
+                user_id: selectedUser.value,
+                network_id: selectedNetwork.value,
+            }
         });
         posts.value = response.data.posts;
 

@@ -44,6 +44,7 @@ class BlogPostsResourcesController extends Controller
 
     private function checkRequestField(string $field): bool
     {
-        return \request()->filled($field) && $field !== 'all';
+
+        return \request()->filled($field) && \request($field) !== 'all';
     }
 }
