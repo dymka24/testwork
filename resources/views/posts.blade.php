@@ -7,8 +7,8 @@
     <title>Posts</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 antialiased">
-<div class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+<body class="bg-gray-100  antialiased">
+<div class="md:container md:mx-auto">
 <div id="app"></div>
 </div>
 @vite('resources/js/app.js')

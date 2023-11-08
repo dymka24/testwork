@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\SocialNetwork;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title'=>fake()->title,
+            'content'=>fake()->paragraph(rand(10,20)),
+            'social_network_id'=>SocialNetwork::inRandomOrder()->first()->id,
+            'user_id'=>User::inRandomOrder()->first()->id
         ];
     }
 }

@@ -18,3 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/resources',[BlogPostsResourcesController::class,'index'])->name('blog-posts-resources');
+Route::get('/posts',[BlogPostsResourcesController::class,'posts'])->name('blog-posts-resources');

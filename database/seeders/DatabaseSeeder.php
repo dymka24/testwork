@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
 //            SocialNetworkSeeder::class,
 //            UsersListsTableSeeder::class,
-            UsersTableSeeder::class
+//            UsersTableSeeder::class,
+//            UserToUsersListsSeeder::class
         ]);
+        \App\Models\Post::factory(150)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

@@ -18,12 +18,12 @@ class Post extends Model
         'social_network_id',
     ];
 
-    public function user()
+    public function User()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function socialNetwork()
+    public function SocialNetwork()
     {
         return $this->belongsTo(SocialNetwork::class);
     }

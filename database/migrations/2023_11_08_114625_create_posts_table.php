@@ -16,11 +16,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('social_network_id')->constrained();
+            $table->string('title');
             $table->text('content');
             $table->string('original_link')->nullable();
             $table->timestamps();
         });
-        
+
     }
 
     /**

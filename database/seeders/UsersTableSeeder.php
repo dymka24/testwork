@@ -13,10 +13,11 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         $insert_data=[];
+        $i=0;
         while($i<20){
             $insert_data[]=['name'=>fake()->name,'email'=>fake()->email,'password'=>bcrypt(12345678)];
             $i++;
         }
-        \DB::table('user_lists')->insert($insert_data);
+        \DB::table('users')->insert($insert_data);
     }
 }

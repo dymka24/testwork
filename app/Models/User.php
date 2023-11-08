@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function UserLists()
     {
-        return $this->belongsToMany(UserList::class, 'user_users_list');
+        return $this->belongsToMany(UserList::class, 'user_users_list','user_id','user_list_id');
     }
 
     public function socialNewtorkAccounts() {
