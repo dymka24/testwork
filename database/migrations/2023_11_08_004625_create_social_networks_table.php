@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('social_networks', function (Blueprint $table) {
             $table->id();
             $table->string('platform');
-            $table->string('account_name');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('account_name')->nullable();
 
             $table->timestamps();
         });

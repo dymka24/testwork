@@ -13,8 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_users_list', function (Blueprint $table) {
-            $table->foreignId('users_list_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignIdFor(User::class)->constrained();
+            $table->unsignedBigInteger('user_list_id');
+            $table->foreign('user_list_id')->references('id')->on('user_lists')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

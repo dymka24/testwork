@@ -13,7 +13,7 @@ class BlogPostsResourcesController extends Controller
     public function index(){
         $lists=UserList::get(['id','name']);
         $users=User::whereHas('UserLists')->get(['id','name']);
-        $networks=SocialNetwork::get(['id','name']);
+        $networks=SocialNetwork::get(['id','platform']);
         return response()->json(['success'=>true,...compact('lists','users','networks')]);
     }
 }
