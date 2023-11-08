@@ -1,8 +1,8 @@
 <template>
-    <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-gray-100  antialiased">
-        <h1 class="mb-4 text-5xl text-center mb-10 font-extrabold">Blog Posts</h1>
+    <main class="pt-8 pb-16 lg:pt-10 lg:pb-24 bg-gray-100  antialiased">
+        <h1 class="mb-4 text-5xl text-center  font-extrabold">Blog Posts</h1>
         <hr>
-        <div class="grid grid-cols-4 gap-4 mt-10">
+        <div class="grid grid-cols-6 gap-4 mt-5">
             <div class="col-span-1">
                 <label for="lists" class="text-gray-900">Lists</label>
                 <select id="lists" v-model="selectedList"
@@ -37,9 +37,16 @@
 
                     <input type="search" id="default-search"   v-model="searchInput"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Search posts..." >
             </div>
-
+            <div class="col-span-1">
+                <label for="lists" class="text-gray-900">Start date</label>
+                <input type="date" v-model="startDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
+            </div>
+                <div class="col-span-1">
+                    <label for="lists" class="text-gray-900">End date</label>
+                <input type="date" v-model="endDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
+              </div>
         </div>
-        <div class="mt-10" style="max-height: 60vh;overflow-y: auto">
+        <div class="mt-10" style="max-height: 70vh;overflow-y: auto">
         <div class="grid grid-cols-1 gap-10 w-4/6 m-auto" >
             <div class="col-span-1" v-for="post in posts" :key="post.id">
                 <div class="bg-white shadow-md rounded-lg py-5 px-10 hover:shadow-lg transition-shadow duration-150">
@@ -75,6 +82,9 @@ const selectedList = ref('all');
 const selectedNetwork = ref('all');
 const selectedUser = ref('all');
 const searchInput = ref('');
+const startDate = ref('');
+const endDate = ref('');
+
 const getResources = async () => {
     try {
         const response = await axios.get('/api/resources');
@@ -99,7 +109,10 @@ const getPosts = async () => {
                 list_id: selectedList.value,
                 user_id: selectedUser.value,
                 network_id: selectedNetwork.value,
-                search_input:searchInput.value
+                search_input:searchInput.value,
+                start_date:startDate.value,
+                end_date:endDate.value
+
             }
         });
         posts.value = response.data.posts;
@@ -112,7 +125,21 @@ watchEffect(() => {
     if (searchInput.value.length > 2 || searchInput.value.length === 0) { // Optional: Only search when the query is 3 or more characters or empty
         getPosts();
     }
+
 });
+
+watch(startDate, (newDate, oldDate) => {
+    if (newDate !== oldDate) {
+        getPosts(); // Call getPosts when startDate changes
+    }
+});
+
+watch(endDate, (newDate, oldDate) => {
+    if (newDate !== oldDate) {
+        getPosts(); // Call getPosts when endDate changes
+    }
+});
+
 const getUsers = async () => {
     try {
         const response = await axios.get('/api/users', {
@@ -146,7 +173,7 @@ onMounted(() => {
     getResources();
 })
 onUpdated(() => {
-    console.log('selectedList', selectedList.value)
-    console.log('posts', posts.value)
+    // console.log('selectedList', selectedList.value)
+    // console.log('posts', posts.value)
 })
 </script>

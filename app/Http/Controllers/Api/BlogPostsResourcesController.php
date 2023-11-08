@@ -40,7 +40,10 @@ class BlogPostsResourcesController extends Controller
                 return $q->where('title','LIKE',"%".$search_input."%")
                     ->orWhere('content','LIKE',"%".$search_input."%");
             });
-
+        })->when($this->checkRequestField('start_date'),function ($q){
+            return $q->whereDate('created_at','>=',\request('start_date'));
+        })->when($this->checkRequestField('end_date'),function ($q){
+            return $q->whereDate('created_at','<=',\request('end_date'));
         })->with('User')->get()->transform(function ($post) {
             $post->published_at = $post->created_at ? Carbon::parse($post->created_at)->format('d/m/Y') : '';
             return $post;
