@@ -42,6 +42,16 @@ class BlogPostsResourcesController extends Controller
 
     }
 
+    public function getUsers(){
+        $users=User::when($this->checkRequestField('list_id'),function ($q){
+            return $q->whereHas('UserLists', function ($q) {
+                return $q->where('id', \request('list_id'));
+            });
+        })->get(['id','name','email']);
+        return response()->json(['success' => true, 'users' => $users]);
+
+    }
+
     private function checkRequestField(string $field): bool
     {
 

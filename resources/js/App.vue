@@ -78,23 +78,7 @@ const getResources = async () => {
         console.log('error', e)
     }
 }
-watch(selectedList, (newValue, oldValue) => {
-    if (newValue !== oldValue) {
-        getPosts();
-    }
-});
-watch(selectedNetwork, (newValue, oldValue) => {
-    if (newValue !== oldValue) {
-        getPosts();
-    }
-});
-watch(selectedUser, (newValue, oldValue) => {
-    if (newValue !== oldValue) {
-        getPosts();
-    }
-});
 const getPosts = async () => {
-    console.log('getPosts')
     try {
         const response = await axios.get('/api/posts', {
             params: {
@@ -109,6 +93,35 @@ const getPosts = async () => {
         console.log('error', e)
     }
 }
+const getUsers = async () => {
+    try {
+        const response = await axios.get('/api/users', {
+            params: {
+                list_id: selectedList.value,
+            }
+        });
+        users.value = response.data.users;
+        await getPosts();
+
+    } catch (e) {
+        console.log('error', e)
+    }
+}
+watch(selectedList, (newValue, oldValue) => {
+    if (newValue !== oldValue) {
+        getUsers();
+    }
+});
+watch(selectedNetwork, (newValue, oldValue) => {
+    if (newValue !== oldValue) {
+        getPosts();
+    }
+});
+watch(selectedUser, (newValue, oldValue) => {
+    if (newValue !== oldValue) {
+        getPosts();
+    }
+});
 onMounted(() => {
     getResources();
 })
