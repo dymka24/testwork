@@ -37,9 +37,9 @@
         <div class="grid grid-cols-1 gap-10 mt-10 w-4/6 m-auto" >
             <div class="col-span-1" v-for="post in posts" :key="post.id">
                 <div class="bg-white shadow-md rounded-lg py-5 px-10 hover:shadow-lg transition-shadow duration-150">
-                    <h1 class="font-bold text-xl mb-2 text-slate-900" >{{ post.title }}</h1>
+                    <h1 class="font-bold underline text-3xl mb-10 text-slate-900" >{{ post.title }}</h1>
                     <div class="flex justify-between items-center mb-5">
-                    <h4 class="underline">{{ post?.user?.name }}</h4>
+                    <h4 class="font-bold">{{ post?.user?.name }}</h4>
                         <h4 class="font-bold">{{ post?.published_at}}</h4>
 
                     </div>
