@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function UserLists(){
+        return $this->belongsToMany(UserList::class,'user_to_user_list');
+    }
+
 }
